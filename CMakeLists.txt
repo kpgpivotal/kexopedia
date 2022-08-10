@@ -2,17 +2,17 @@
 cmake_minimum_required(VERSION 3.12 FATAL_ERROR)
 
 # project name and language
-project(name LANGUAGES CXX)
+project(kexopedia LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 
 
 add_subdirectory(src)
 
-include_directories (${Boost_INCLUDE_DIR})
+#include_directories (${Boost_INCLUDE_DIR})
 
 add_executable(${PROJECT_NAME}  main.cpp)
 
-target_include_directories(${PROJECT_NAME} PUBLIC ${Boost_INCLUDE_DIRS}) 
+#target_include_directories(${PROJECT_NAME} PUBLIC ${Boost_INCLUDE_DIRS}) 
 
 target_link_libraries(${PROJECT_NAME}
-	PRIVATE  kexopedia_lib pthread )
+	PRIVATE  kexopedia_lib  )

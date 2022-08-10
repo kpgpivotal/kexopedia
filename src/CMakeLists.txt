@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-add_library (kexopedia_lib kexopedia.cpp )
+add_library (kexopedia_lib kexopedia.cpp utils.cpp uimanager.cpp )
 
 target_include_directories(kexopedia_lib PUBLIC "../include" )
 
