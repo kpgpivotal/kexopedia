@@ -2,8 +2,8 @@
 #include "utils.hpp"
 
 User::User() : mFirstName{""},mLastName{""},mAddress{""} , mEmail{""} {}
-User::User(long id, string firstName, string lastName, string email, string address)
-    :  mid{id}, mEmail{email}  {
+User::User(long id, string firstName, string lastName, string email, string password, string address)
+    :  mid{id}, mEmail{email}  , mPassword{password}{
 
     mFirstName = capitalize_first_letter(firstName);
     mLastName = capitalize_first_letter(lastName);
@@ -21,4 +21,13 @@ string  User::getName() const{
 
 string User::getEmail() const{
     return mEmail;
+}
+
+bool User::verify_password(string password) const{
+     
+    if ( mPassword.compare(password) == 0 ) {
+        return true;
+    }
+
+    return false;
 }

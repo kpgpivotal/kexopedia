@@ -82,7 +82,12 @@ int UIManager::process_user_choice(int choice){
 }
 
 int UIManager::login(){
-    user_manager.login();
+	bool is_authenicated{};
+
+    is_authenicated = user_manager.login();
+	if (false == is_authenicated ){
+		return 0;
+	}
 
     return 1;
 }

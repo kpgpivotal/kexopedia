@@ -27,6 +27,8 @@ string get_input_email(string prompt);
 string get_input_string(string prompt);
 bool isChar(char c);
 bool isDigit(const char c);
+long get_input_long(string prompt);
+
 
 
 #endif

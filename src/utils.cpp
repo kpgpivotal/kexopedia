@@ -20,11 +20,25 @@ int get_input_int(string prompt){
     cout <<  prompt << " : " ;
     std::getline(std::cin, input);
     try{ 
-        int_val = stol(input);
+        int_val = stoi(input);
     }
     catch (...){}
 
     return int_val;
+}
+
+long get_input_long(string prompt){
+    string input{};
+    long long_val{-1};
+  
+    cout <<  prompt << " : " ;
+    std::getline(std::cin, input);
+    try{ 
+        long_val = stol(input);
+    }
+    catch (...){}
+
+    return long_val;
 }
 
 void clear_console() {

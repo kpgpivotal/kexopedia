@@ -20,10 +20,11 @@ class User {
 
     public:
         User();
-        User(long id, string mFirstName, string mLastName, string mEmail, string maddress);
+        User(long id, string mFirstName, string mLastName, string mEmail, string password, string maddress);
         User(string firstName, string email);
         string getName() const;
         string getEmail() const;
+        bool verify_password(string password) const;
         
 
     private:
@@ -31,6 +32,7 @@ class User {
         string mFirstName;
         string mLastName;
         string mEmail;
+        string mPassword;
         string mAddress;
 };
 
@@ -42,6 +44,7 @@ void serialize(Archive& archive, User& record) {
         cereal::make_nvp("mFirstName", record.mFirstName),
       cereal::make_nvp("mLastName", record.mLastName),
       cereal::make_nvp("mEmail", record.mEmail),
+      cereal::make_nvp("mPassword", record.mPassword),
       cereal::make_nvp("mAddress", record.mAddress));
 }
 
