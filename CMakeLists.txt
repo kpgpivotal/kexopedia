@@ -15,4 +15,4 @@ add_executable(${PROJECT_NAME}  main.cpp)
 #target_include_directories(${PROJECT_NAME} PUBLIC ${Boost_INCLUDE_DIRS}) 
 
 target_link_libraries(${PROJECT_NAME}
-	PRIVATE  kexopedia_lib  )
+	PRIVATE  kexopedia_lib /home/kishore/lib/fmt-9.0.0/lib/libfmt.a  )

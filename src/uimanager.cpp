@@ -82,13 +82,13 @@ int UIManager::process_user_choice(int choice){
 }
 
 int UIManager::login(){
-    message("login");
+    user_manager.login();
 
     return 1;
 }
         
 int UIManager::signup(){
-    message("signup");
+    user_manager.signup();
 
     return 1;
 }

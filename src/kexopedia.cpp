@@ -8,7 +8,6 @@ Kexopedia::Kexopedia(){
 int Kexopedia::launch_app(){
     UIManager ui_manager{};
 
-
     cout << "Starting Kexopedia ..." << endl;
     intialize();
     ui_manager.show_menu();
@@ -17,5 +16,6 @@ int Kexopedia::launch_app(){
 
 
 int Kexopedia::intialize() {
+
     return 1;
 }
