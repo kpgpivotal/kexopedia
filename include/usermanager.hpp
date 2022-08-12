@@ -22,7 +22,8 @@ class UserManager{
         UserManager();
         ~UserManager();
         bool login();
-        int signup();
+        bool signup(User &new_user);
+        bool administration();
 
     private:
         map<long, User> mUser_map;

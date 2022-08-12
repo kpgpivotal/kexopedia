@@ -44,9 +44,15 @@ bool UserManager::login(){
         return false;
     }
     
-    password = get_input_string("Please enter password ");
+    password = get_input_string("Please enter password for user '" + pt_user->get_name() + "'");
     if ( true == pt_user->verify_password(password)) {
-        message("\nUser authenticated!");
+        
+        if (pt_user->is_administrator()) {
+            message("\nUser '"+ pt_user->get_name() + "' is  authenticated as an administrator!");
+        }
+        else {
+             message("\nUser '"+ pt_user->get_name() + "' is authenticated!");
+        }
         return true;
     }
     message("\nPassword verification failed. Try again.");
@@ -61,8 +67,27 @@ User* UserManager::get_user_from_id(long id){
     }
     return pt_user;
 }
+
+
+bool UserManager::administration(){
+    message("\tList of users");
+    
+	// iterator pointing to start of map
+	//auto it = mUser_map.begin();
+	
+	// Iterating over the map till map end.
+    std::for_each(mUser_map.begin(), mUser_map.end(),
+        [](std::pair<long, User> key_value)
+        {
+            cout << key_value.first << " " << key_value.second.get_name() << endl;
+    
+        });
+
+    cout << endl;
+    return true;
+}
         
-int UserManager::signup() {
+bool UserManager::signup(User &new_user) {
     string fname{}, lname{}, email{},password{},  address{};
 
 	fname = get_input_string("Please enter first name ");
@@ -70,13 +95,19 @@ int UserManager::signup() {
 	email = get_input_email("Please enter email ");
     password = get_input_string("Please enter password ");
     address = get_input_string("Please enter address ");
-	//name = "Anil";
-	//email = "anil@email.com";
-	User new_user{++mUser_id_counter, fname, lname, email, password, address};
-    mUser_map.insert(pair<long, User>(mUser_id_counter, new_user));
-    message("New user added.");
+	
+    ++mUser_id_counter;
+    new_user.setMid(mUser_id_counter);
+    new_user.setMFirstName(fname);
+    new_user.setMLastName(lname);
+    new_user.setMEmail(email);
+    new_user.setMPassword(password);
+    new_user.setMAddress(address);
 
-    return 1;
+    mUser_map.insert(pair<long, User>(mUser_id_counter, new_user));
+    message("New user '" + fname + "' is added.");
+
+    return true;
 }
 
 UserManager::~UserManager() {

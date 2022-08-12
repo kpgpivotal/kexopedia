@@ -16,6 +16,7 @@ class UIManager {
         int process_user_choice( int choice);
         int login();
         int signup();
+        int administration();
 };
 
 

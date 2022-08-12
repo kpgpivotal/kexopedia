@@ -9,6 +9,7 @@ int UIManager::show_menu(){
         print_line();
         message("1: Login");
         message("2: Sign Up");
+		message("3: Admin");
         message("0: Exit");
         print_line();
         choice  = get_input_int("\nPlease enter your choice: ");
@@ -36,6 +37,11 @@ int UIManager::process_user_choice(int choice){
 
 		case 2 : {
 			signup();
+			break;
+		}
+
+		case 3 : {
+			administration();
 			break;
 		}
         /*
@@ -81,6 +87,12 @@ int UIManager::process_user_choice(int choice){
 	return 1;
 }
 
+int UIManager::administration(){
+	user_manager.administration();
+	
+	return 1;
+}
+
 int UIManager::login(){
 	bool is_authenicated{};
 
@@ -93,7 +105,9 @@ int UIManager::login(){
 }
         
 int UIManager::signup(){
-    user_manager.signup();
+	User newuser{};
+
+    user_manager.signup(newuser);
 
     return 1;
 }

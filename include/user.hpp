@@ -1,5 +1,5 @@
 #ifndef INCLUDE_USER_HPP_
-#define INCLUDE_USer_HPP_
+#define INCLUDE_USER_HPP_
 
 #include <iostream>
 #include <string>
@@ -22,10 +22,23 @@ class User {
         User();
         User(long id, string mFirstName, string mLastName, string mEmail, string password, string maddress);
         User(string firstName, string email);
-        string getName() const;
-        string getEmail() const;
+        string get_name() const;
+        string get_email() const;
         bool verify_password(string password) const;
-        
+        long getMid();
+        void setMid(long mid);
+        string getMFirstName();
+        void setMFirstName(string mFirstName);
+        string getMLastName();
+        void setMLastName(string mLastName);
+        string getMEmail();
+        void setMEmail(string mEmail);
+        string getMPassword();
+        void setMPassword(string mPassword);
+        string getMAddress();
+        void setMAddress(string mAddress);
+        bool is_administrator() const;
+        void make_administrator();
 
     private:
         long mid;
@@ -34,6 +47,7 @@ class User {
         string mEmail;
         string mPassword;
         string mAddress;
+        bool is_admin;
 };
 
 // function template serialize is responsible for serializing and 
@@ -45,7 +59,8 @@ void serialize(Archive& archive, User& record) {
       cereal::make_nvp("mLastName", record.mLastName),
       cereal::make_nvp("mEmail", record.mEmail),
       cereal::make_nvp("mPassword", record.mPassword),
-      cereal::make_nvp("mAddress", record.mAddress));
+      cereal::make_nvp("mAddress", record.mAddress),
+      cereal::make_nvp("is_admin", record.is_admin));
 }
 
 #endif /* INCLUDE_User_HPP_ */
