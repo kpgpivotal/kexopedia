@@ -6,6 +6,20 @@ UserManager::UserManager() {
     read_config_file();
 }
 
+int UserManager::list_users(){
+    message("\tList of users");
+ 	
+	// Iterating over the map till map end.
+    std::for_each(mUser_map.begin(), mUser_map.end(),
+        [](std::pair<long, User> key_value)
+        {
+            cout << key_value.first << " " << key_value.second.get_name() << endl;
+    
+        });
+
+    cout << endl;
+}
+
 int UserManager::read_config_file(){
     try {
 
@@ -27,21 +41,21 @@ int UserManager::read_config_file(){
     return 1;
 }
 
-bool UserManager::login(){
+User_Status  UserManager::login(){
     long id{};
-    User* pt_user{};
+    User* pt_user{nullptr};
     string password{};
 
     if (0 == mUser_map.size()) {
         message("User list is empty.");
-        return false;
+        return  Not_logged;
     }
 
     id = get_input_long("Please enter user id");
     pt_user = get_user_from_id(id);
     if (nullptr == pt_user) {
         message("\nInvalid user id. Please try again.");
-        return false;
+        return  Not_logged;
     }
     
     password = get_input_string("Please enter password for user '" + pt_user->get_name() + "'");
@@ -49,14 +63,17 @@ bool UserManager::login(){
         
         if (pt_user->is_administrator()) {
             message("\nUser '"+ pt_user->get_name() + "' is  authenticated as an administrator!");
+            return Admin;
         }
         else {
-             message("\nUser '"+ pt_user->get_name() + "' is authenticated!");
+
+            message("\nUser '"+ pt_user->get_name() + "' is authenticated!");
+            return Logged;
         }
-        return true;
+        
     }
     message("\nPassword verification failed. Try again.");
-    return false;
+    return  Not_logged;
 }
 
 User* UserManager::get_user_from_id(long id){
@@ -71,10 +88,7 @@ User* UserManager::get_user_from_id(long id){
 
 bool UserManager::administration(){
     message("\tList of users");
-    
-	// iterator pointing to start of map
-	//auto it = mUser_map.begin();
-	
+ 	
 	// Iterating over the map till map end.
     std::for_each(mUser_map.begin(), mUser_map.end(),
         [](std::pair<long, User> key_value)

@@ -1,29 +1,24 @@
 #include "uimanager.hpp"
 
 
+UIManager::UIManager(){
+	the_ustatus = Not_logged;
+}
+
 int UIManager::show_menu(){
-    int choice{};
+    int choice {};
+	while (true) {
+		choice = the_menu.show_menu(the_ustatus);
 
-    while (true) {
-        message("\n\tKexopedia Menu");
-        print_line();
-        message("1: Login");
-        message("2: Sign Up");
-		message("3: Admin");
-        message("0: Exit");
-        print_line();
-        choice  = get_input_int("\nPlease enter your choice: ");
-        clear_console();
-
-        if ( EXIT_MENU_CHOICE == choice) {
+		if ( EXIT_MENU_CHOICE == choice) {
 			message("\nThank you. Looking forward to your next visit.\n");
 			break;
-		}
+    	}
 
-		process_user_choice(choice);
-    }
-
-    return 1;
+		process_user_choice( choice);
+	}
+	
+	return 1;
 }
 
 
@@ -44,42 +39,13 @@ int UIManager::process_user_choice(int choice){
 			administration();
 			break;
 		}
-        /*
-		case 3 : {
-			borrowers_info();
+
+		case 10 : {
+			list_users();
 			break;
 		}
 
-		case 4 : {
-			print_library_by_id();
-			break;
-		}
-
-		case 5 : {
-			print_library_by_bookname();
-			break;
-		}
-
-		case 6 : {
-			add_user();
-			break;
-		}
-
-		case 7 : {
-			borrow_book();
-			break;
-		}
-
-		case 8 : {
-			return_book();
-			break;
-		}
-
-		case 9 : {
-			print_members();
-			break;
-		}
-*/
+  
 		default : {
 			message("Invalid input. Please try again");
 		}
@@ -87,19 +53,21 @@ int UIManager::process_user_choice(int choice){
 	return 1;
 }
 
+int UIManager::list_users(){
+	user_manager.list_users();
+	return 1;
+}
+
 int UIManager::administration(){
 	user_manager.administration();
-	
+
 	return 1;
 }
 
 int UIManager::login(){
 	bool is_authenicated{};
 
-    is_authenicated = user_manager.login();
-	if (false == is_authenicated ){
-		return 0;
-	}
+    the_ustatus = user_manager.login();
 
     return 1;
 }

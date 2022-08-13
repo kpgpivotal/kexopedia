@@ -11,8 +11,12 @@
 #include <fstream>
 #include "utils.hpp"
 #include "user.hpp"
+#include "menu.hpp"
+
 
 const string CONFIG_FILE_NAE = "kexopedia.json";
+
+
 class UserManager{
     // declare serialize as a friend for direct access to private data
    template<typename Archive>
@@ -21,15 +25,18 @@ class UserManager{
     public:
         UserManager();
         ~UserManager();
-        bool login();
+        User_Status  login();
         bool signup(User &new_user);
         bool administration();
+        int list_users();
 
     private:
+        Menu the_menu{};
         map<long, User> mUser_map;
         long mUser_id_counter;
         int read_config_file();
         User* get_user_from_id(long id);
+        
 
     // function template serialize is responsible for serializing and 
     // deserializing Record objects to/from the specified Archive
