@@ -10,18 +10,23 @@ int Menu::show_menu(User_Status the_ustatus){
 
     switch ( the_ustatus)
     {
-    case Not_logged : {
-        choice = show_login_menu();
-        break;
-    }
-    case Admin : {
-        choice = show_admin_menu();
-        break;
+        case Not_logged : {
+            choice = show_login_menu();
+            break;
+        }
+        case Admin : {
+            choice = show_admin_menu();
+            break;
+        }
+        case Logged : {
+            choice = show_user_menu();
+            break;
+        }
+
+        default:
+            break;
     }
 
-    default:
-        break;
-    }
     return choice;
 }
 
@@ -41,7 +46,18 @@ int Menu::show_login_menu(){
 }
 
 int Menu::show_user_menu(){
-    return 1;
+     int choice{};
+
+    message("\n\tKexopedia Menu");
+    print_line();
+    message("15: make_booking");
+    message("16: list_booking");
+    message("9: Logout");
+    print_line();
+    choice  = get_input_int("\nPlease enter your choice: ");
+    clear_console();
+
+    return choice ;
 }
 
 int Menu::show_admin_menu(){
@@ -50,7 +66,7 @@ int Menu::show_admin_menu(){
     message("\n\tKexopedia Menu");
     print_line();
     message("10: List users");
-    message("0: Exit");
+    message("9: Logout");
     print_line();
     choice  = get_input_int("\nPlease enter your choice: ");
     clear_console();

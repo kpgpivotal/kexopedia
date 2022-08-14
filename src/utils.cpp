@@ -155,3 +155,30 @@ bool isDigit(const char c)
 {
     return (c >= '0' && c <= '9');
 }
+
+
+bool  get_y_n_confirmation(string prompt) {
+    string input_str;
+    char input;
+    bool valid_input{};
+
+    input_str = get_input_string(prompt); 
+    if (0 == input_str.size()){
+        return false;
+    }
+
+    input = input_str.at(0);
+    if ( isalpha(input) == 0 ) {
+        return false;;
+    }
+
+    input = toupper(input);
+    if ( input ==  toupper('Y')) {
+        return true;
+    }
+
+    return false;
+}
+    
+
+   

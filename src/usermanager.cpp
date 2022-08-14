@@ -18,6 +18,7 @@ int UserManager::list_users(){
         });
 
     cout << endl;
+    return 1;
 }
 
 int UserManager::read_config_file(){
@@ -66,7 +67,6 @@ User_Status  UserManager::login(){
             return Admin;
         }
         else {
-
             message("\nUser '"+ pt_user->get_name() + "' is authenticated!");
             return Logged;
         }

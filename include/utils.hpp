@@ -28,6 +28,7 @@ string get_input_string(string prompt);
 bool isChar(char c);
 bool isDigit(const char c);
 long get_input_long(string prompt);
+bool  get_y_n_confirmation(string prompt="Are you sure ( Y/N )?");
 
 
 

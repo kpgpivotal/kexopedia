@@ -7,7 +7,6 @@
 
 const int EXIT_MENU_CHOICE = 0;
 
-
 class UIManager {
     public:
         UIManager();
@@ -22,6 +21,9 @@ class UIManager {
         int signup();
         int administration();
         int list_users();
+        int make_booking();
+        int list_booking();
+        int logout();
 };
 
 
