@@ -16,6 +16,7 @@ class Menu{
         int show_login_menu();
         int show_user_menu();
         int show_admin_menu();
+        
 };
 
 #endif

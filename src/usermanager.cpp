@@ -4,7 +4,10 @@
 UserManager::UserManager() {
     mUser_id_counter = 0;
     read_config_file();
+    
 }
+
+
 
 int UserManager::list_users(){
     message("\tList of users");
@@ -23,8 +26,6 @@ int UserManager::list_users(){
 
 int UserManager::read_config_file(){
     try {
-
-        
         // deserialize
         // deserialize JSON from text file into vector of Records
         if (std::ifstream input{CONFIG_FILE_NAE}) {
@@ -128,7 +129,7 @@ UserManager::~UserManager() {
     try {
         if (std::ofstream output{CONFIG_FILE_NAE}) {
             cereal::JSONOutputArchive archive{output};
-            archive(cereal::make_nvp("user_list", mUser_map),
+            archive(cereal::make_nvp("mUser_map", mUser_map),
             cereal::make_nvp("mUser_id_counter", mUser_id_counter)
             ); // serialize records 
         }
