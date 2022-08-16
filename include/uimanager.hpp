@@ -33,12 +33,14 @@ class UIManager {
         int signup();
         int administration();
         int list_users();
-        int make_booking();
+        int make_itinerary();
         int list_booking();
         int logout();
         int read_config_file();
         bool is_valid_choice(int choice);
         int init_choice_map();
+        int view_profile();
+        int list_my_itineraries();
 
 
 };

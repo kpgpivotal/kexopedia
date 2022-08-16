@@ -15,7 +15,7 @@ UIManager::UIManager(){
 
 int UIManager::init_choice_map(){
 	not_logged_vector = {1,2,0};
-    logged_vector = {15,16,9};
+    logged_vector = {15,16,17,9};
     admin_vector = {10,9};
     valid_choice_map.insert(pair<User_Status, vector<int>>(Not_logged, not_logged_vector));
     valid_choice_map.insert(pair<User_Status, vector<int>>(Logged, logged_vector));
@@ -158,12 +158,17 @@ int UIManager::process_user_choice(int choice){
 		}
 
 		case 15 : {
-			make_booking();
+			view_profile();
+			break;
+		}
+		
+		case 16 : {
+			make_itinerary();
 			break;
 		}
 
-		case 16 : {
-			list_booking();
+		case 17 : {
+			list_my_itineraries();
 			break;
 		}
 
@@ -172,6 +177,16 @@ int UIManager::process_user_choice(int choice){
 			message("Invalid input. Please try again");
 		}
 	}
+	return 1;
+}
+
+int UIManager::list_my_itineraries(){
+	message("list_my_itineraries");
+	return 1;
+}
+
+int UIManager::view_profile(){
+	message("view_profile");
 	return 1;
 }
 
@@ -188,15 +203,11 @@ int UIManager::logout(){
 	return 0;
 }
 
-int UIManager::make_booking(){
+int UIManager::make_itinerary(){
 	message("Make Booking");
 	return 1;
 }
 
-int UIManager::list_booking(){
-	message("List Booking");
-	return 1;
-}
 
 int UIManager::list_users(){
 	user_manager.list_users();

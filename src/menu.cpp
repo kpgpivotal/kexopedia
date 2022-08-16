@@ -50,8 +50,9 @@ int Menu::show_user_menu(){
 
     message("\n\tKexopedia Menu");
     print_line();
-    message("15: make_booking");
-    message("16: list_booking");
+    message("15: View Profile");
+    message("16: Make Itinerary");
+    message("17: List My Itineraries");
     message("9: Logout");
     print_line();
     choice  = get_input_int("\nPlease enter your choice: ");

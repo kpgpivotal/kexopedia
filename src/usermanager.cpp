@@ -4,10 +4,7 @@
 UserManager::UserManager() {
     mUser_id_counter = 0;
     read_config_file();
-    
 }
-
-
 
 int UserManager::list_users(){
     message("\tList of users");
@@ -129,7 +126,7 @@ UserManager::~UserManager() {
     try {
         if (std::ofstream output{CONFIG_FILE_NAE}) {
             cereal::JSONOutputArchive archive{output};
-            archive(cereal::make_nvp("mUser_map", mUser_map),
+            archive(cereal::make_nvp("user_list", mUser_map),
             cereal::make_nvp("mUser_id_counter", mUser_id_counter)
             ); // serialize records 
         }
