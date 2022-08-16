@@ -29,16 +29,15 @@ class User {
         bool verify_password(string password) const;
         long getMid();
         void setMid(long mid);
-        string getMFirstName();
-        void setMFirstName(string mFirstName);
-        string getMLastName();
-        void setMLastName(string mLastName);
-        string getMEmail();
-        void setMEmail(string mEmail);
-        string getMPassword();
-        void setMPassword(string mPassword);
-        string getMAddress();
-        void setMAddress(string mAddress);
+        string get_firstName();
+        void set_firstName(string mFirstName);
+        string get_lastName();
+        void set_lastName(string mLastName);
+        void set_email(string mEmail);
+        string get_password();
+        void set_password(string mPassword);
+        string get_address();
+        void set_address(string mAddress);
         bool is_administrator() const;
         void make_administrator();
 

@@ -45,25 +45,25 @@ void User::setMid(long id)
 }
 
 
-string User::getMFirstName()
+string User::get_firstName()
 {
     return mFirstName;
 }
 
 
-void User::setMFirstName(string firstName)
+void User::set_firstName(string firstName)
 {
     mFirstName = firstName;
 }
 
 
-string User::getMLastName()
+string User::get_lastName()
 {
     return mLastName;
 }
 
 
-void User::setMLastName(string lastName)
+void User::set_lastName(string lastName)
 {
     mLastName = lastName;
 }
@@ -71,31 +71,31 @@ void User::setMLastName(string lastName)
 
 
 
-void User::setMEmail(string email)
+void User::set_email(string email)
 {
     mEmail = email;
 }
 
 
-string User::getMPassword()
+string User::get_password()
 {
     return mPassword;
 }
 
 
-void User::setMPassword(string password)
+void User::set_password(string password)
 {
     mPassword = password;
 }
 
 
-string User::getMAddress()
+string User::get_address()
 {
     return mAddress;
 }
 
 
-void User::setMAddress(string address)
+void User::set_address(string address)
 {
     mAddress = address;
 }

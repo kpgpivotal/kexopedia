@@ -4,6 +4,7 @@
 UserManager::UserManager() {
     mUser_id_counter = 0;
     read_config_file();
+    active_user_id = 0;
 }
 
 int UserManager::list_users(){
@@ -57,6 +58,7 @@ User_Status  UserManager::login(){
         return  Not_logged;
     }
     
+    active_user_id = id;
     password = get_input_string("Please enter password for user '" + pt_user->get_name() + "'");
     if ( true == pt_user->verify_password(password)) {
         
@@ -72,6 +74,30 @@ User_Status  UserManager::login(){
     }
     message("\nPassword verification failed. Try again.");
     return  Not_logged;
+}
+
+string UserManager::get_active_user_profile(){
+    string profile{};
+    User* pt_user{nullptr};
+
+    if (0 == active_user_id){
+        return "No active user found.";
+    }
+
+    auto itr = mUser_map.find(active_user_id);
+    if (itr != mUser_map.end()) {
+        pt_user = &(itr->second);
+          profile.append("Name    : ");
+        profile.append( pt_user->get_name());
+        profile.append("\nEmail   : ");
+        profile.append( pt_user->get_email());
+        profile.append("\nAddress : ");
+        profile.append( pt_user->get_address());
+        profile.append("\n");
+
+    }
+
+    return profile;
 }
 
 User* UserManager::get_user_from_id(long id){
@@ -110,11 +136,11 @@ bool UserManager::signup(User &new_user) {
 	
     ++mUser_id_counter;
     new_user.setMid(mUser_id_counter);
-    new_user.setMFirstName(fname);
-    new_user.setMLastName(lname);
-    new_user.setMEmail(email);
-    new_user.setMPassword(password);
-    new_user.setMAddress(address);
+    new_user.set_firstName(fname);
+    new_user.set_lastName(lname);
+    new_user.set_email(email);
+    new_user.set_password(password);
+    new_user.set_address(address);
 
     mUser_map.insert(pair<long, User>(mUser_id_counter, new_user));
     message("New user '" + fname + "' is added.");

@@ -152,10 +152,7 @@ int UIManager::process_user_choice(int choice){
 			break;
 		}
 
-		case 12 : {
-			list_users();
-			break;
-		}
+
 
 		case 15 : {
 			view_profile();
@@ -186,7 +183,15 @@ int UIManager::list_my_itineraries(){
 }
 
 int UIManager::view_profile(){
-	message("view_profile");
+	string profile{};
+
+	profile = user_manager.get_active_user_profile();
+	if(0 == profile.size()) {
+		message ( "Unable to generate active user profile.");
+		return 0;
+	}
+	message("\tProfile");
+	message ( profile);
 	return 1;
 }
 
