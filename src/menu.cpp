@@ -1,14 +1,14 @@
 #include "menu.hpp"
 
 Menu::Menu() {
-    the_ustatus = Not_logged;
+    current_status = Not_logged;
 }
 
 
-int Menu::show_menu(User_Status the_ustatus){
+int Menu::show_menu(User_Status current_status){
     int choice{};
 
-    switch ( the_ustatus)
+    switch ( current_status)
     {
         case Not_logged : {
             choice = show_login_menu();
@@ -18,10 +18,17 @@ int Menu::show_menu(User_Status the_ustatus){
             choice = show_admin_menu();
             break;
         }
-        case Logged : {
+        case Loggedin : {
             choice = show_user_menu();
             break;
         }
+
+        case Itinerary : {
+            choice = show_itinerary_menu();
+            break;
+        }
+
+
 
         default:
             break;
@@ -61,6 +68,21 @@ int Menu::show_user_menu(){
     return choice ;
 }
 
+int Menu::show_itinerary_menu(){
+     int choice{};
+
+    message("\n\tKexopedia Menu");
+    print_line();
+    message("21: Add Hotel");
+    message("22: Add Flight");
+    message("23: Done");
+    message("24: Cancel");
+    print_line();
+    choice  = get_input_int("\nPlease enter your choice: ");
+    clear_console();
+
+    return choice ;
+}
 int Menu::show_admin_menu(){
     int choice{};
 

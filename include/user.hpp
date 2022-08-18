@@ -13,7 +13,7 @@
 
 using namespace std;
 // Defining enum status
-enum User_Status { Not_logged, Logged, Admin };
+enum User_Status { Not_logged, Loggedin, Admin, Itinerary };
 
 class User {
    // declare serialize as a friend for direct access to private data

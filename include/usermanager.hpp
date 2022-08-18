@@ -27,6 +27,7 @@ class UserManager{
         bool administration();
         int list_users();
         string get_active_user_profile();
+        long get_active_user_id();
 
     private:
         Menu the_menu{};
@@ -35,8 +36,8 @@ class UserManager{
         int read_config_file();
         User* get_user_from_id(long id);
         long active_user_id;
+       
         
-      
 };
 
 #endif // defined

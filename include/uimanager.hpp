@@ -11,6 +11,7 @@
 #include "utils.hpp"
 #include "usermanager.hpp"
 #include "user.hpp"
+#include "itinerarymanager.hpp"
 
 const int EXIT_MENU_CHOICE = 0;
 const string CONFIG_FILE_NAME = "kexopediaui.json";
@@ -22,11 +23,13 @@ class UIManager {
 
     private:
         UserManager user_manager;
+        ItineraryManager itinerary_manager;
         Menu the_menu;
-        User_Status the_ustatus;
+        User_Status current_status;
         vector<int> not_logged_vector;
         vector<int> logged_vector;
         vector<int> admin_vector;
+        vector<int> itinerary_vector;
         map<User_Status, vector<int> > valid_choice_map;
         int process_user_choice( int choice);
         int login();
@@ -41,6 +44,10 @@ class UIManager {
         int init_choice_map();
         int view_profile();
         int list_my_itineraries();
+        int add_flight();
+        int add_hotel();
+        int itinerary_ok();
+        int itinerary_cancel();
 
 
 };

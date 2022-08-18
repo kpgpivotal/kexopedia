@@ -68,12 +68,16 @@ User_Status  UserManager::login(){
         }
         else {
             message("\nUser '"+ pt_user->get_name() + "' is authenticated!");
-            return Logged;
+            return Loggedin;
         }
         
     }
     message("\nPassword verification failed. Try again.");
     return  Not_logged;
+}
+
+long UserManager::get_active_user_id(){
+    return active_user_id;
 }
 
 string UserManager::get_active_user_profile(){
@@ -162,3 +166,4 @@ UserManager::~UserManager() {
     }
 
 }
+
