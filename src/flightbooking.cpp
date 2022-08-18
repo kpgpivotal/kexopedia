@@ -1,7 +1,11 @@
 
 #include "flightbooking.hpp"
 
-
+ostream & operator<< (ostream& os, Flight_Booking &obj){
+    os << "Cities " << obj.from_city << " -  " << obj.to_city << " on " << obj.travel_date 
+    << ". Passengers " << obj.passengers_count << endl;
+    return os;
+}
 Flight_Booking::Flight_Booking(){
 
 }

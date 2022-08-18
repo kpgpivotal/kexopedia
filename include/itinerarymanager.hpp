@@ -27,11 +27,12 @@ class ItineraryManager {
     int book_flight(int uid);
     int book_hotel(int uid);
     string get_flight_bookings(int uid);
-    
+    int list_my_itineraries(long uid);
 
     private:
     map<int, vector<Flight_Booking> > flight_booking_map;
     int add_flight_to_map(long uid, Flight_Booking& flbook);
+    
    
 };
 

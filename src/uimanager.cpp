@@ -202,7 +202,7 @@ int UIManager::process_user_choice(int choice){
 }
 
 int UIManager::list_my_itineraries(){
-	message("list_my_itineraries");
+	itinerary_manager.list_my_itineraries( user_manager.get_active_user_id());
 	return 1;
 }
 

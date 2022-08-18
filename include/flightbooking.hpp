@@ -14,7 +14,7 @@ using namespace std;
 class Flight_Booking {
     template<typename Archive>
     friend void serialize(Archive& archive, Flight_Booking& record);
-
+    friend ostream & operator<< (ostream& os, Flight_Booking &obj);
     public:
         Flight_Booking();
         Flight_Booking(string from_city, string to_city, string date, int passengers_count, int flight);

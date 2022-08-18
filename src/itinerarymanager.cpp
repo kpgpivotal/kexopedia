@@ -34,6 +34,27 @@ int ItineraryManager::book_flight(int uid){
 
     message("Booked flight");
     
+    return 1;
+}
+
+int ItineraryManager::list_my_itineraries(long uid){
+
+    if (0 == flight_booking_map.size()) {
+        message("No itineraries found.");
+
+        return 0;
+    }
+
+    auto it = flight_booking_map.find(uid);  
+    if ( it != flight_booking_map.end() ) {  
+        vector<Flight_Booking> flight_vector = it->second ; 
+        message("\tItineraries");
+        for (auto& it : flight_vector) {
+            cout << it;
+        }
+    }
+
+    cout << endl;
 
     return 1;
 }
