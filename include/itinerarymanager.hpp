@@ -15,6 +15,7 @@
 #include "user.hpp"
 #include "flightbooking.hpp"
 
+
 using namespace std;
 
 class ItineraryManager {
@@ -26,7 +27,7 @@ class ItineraryManager {
     ~ItineraryManager();
     int book_flight(int uid);
     int book_hotel(int uid);
-    string get_flight_bookings(int uid);
+    void get_flight_bookings(Flight_Booking flight);
     int list_my_itineraries(long uid);
 
     private:

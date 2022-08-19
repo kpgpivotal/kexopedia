@@ -70,7 +70,7 @@ string get_input_string(string prompt){
     cout <<  prompt << " : " ;
     std::getline(std::cin, input);
     
-    return input;
+    return capitalize_first_letter(input);
 }
 
 string get_input_email(string prompt){

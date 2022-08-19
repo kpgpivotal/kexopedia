@@ -1,5 +1,6 @@
 #ifndef UIMANAGER_H
 #define UIMANAGER_H
+
 #include <iterator>
 #include <map>
 #include <vector>
