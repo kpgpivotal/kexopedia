@@ -38,7 +38,8 @@ UIManager::~UIManager()
 		{
 			cereal::JSONOutputArchive archive{output};
 			archive(
-				cereal::make_nvp("valid_choice_map", valid_choice_map), cereal::make_nvp("itinerary_manager", itinerary_manager)); // serialize records
+				cereal::make_nvp("valid_choice_map", valid_choice_map), 
+				cereal::make_nvp("itinerary_manager", itinerary_manager)); // serialize records
 		}
 	}
 	catch (...)

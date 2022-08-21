@@ -42,7 +42,8 @@ void serialize(Archive& archive, Flight_Booking& record) {
         cereal::make_nvp("to_city", record.to_city),
       cereal::make_nvp("travel_date", record.travel_date),
       cereal::make_nvp("passengers_count", record.passengers_count),
-      cereal::make_nvp("flight", record.flight_number));
+      cereal::make_nvp("flight", record.flight_number),
+      cereal::make_nvp("airlines", record.airlines));
 }
 
 

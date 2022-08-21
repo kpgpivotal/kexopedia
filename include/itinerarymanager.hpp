@@ -46,6 +46,9 @@ class ItineraryManager {
 
 template <typename Archive>
 void serialize(Archive& archive, ItineraryManager& record) {
-   archive( cereal::make_nvp("flight_booking_map", record.flight_booking_map));
+   archive( cereal::make_nvp("flight_booking_map", record.flight_booking_map)),
+   archive( cereal::make_nvp("hotel_booking_map", record.hotel_booking_map));
 }
+
+
 #endif

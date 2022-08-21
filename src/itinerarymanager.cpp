@@ -17,7 +17,6 @@ int ItineraryManager::book_flight(int uid){
     // show flights list
     Flight_Booking flight{fcity,tocity, date};
     flight = get_flight_bookings(flight);
-
     flight.set_passengers_count(pcount);
     add_flight_to_map(uid, flight);
 
@@ -56,7 +55,7 @@ int ItineraryManager::list_my_hotel_itineraries(long uid){
     auto it = hotel_booking_map.find(uid);  
     if ( it != hotel_booking_map.end() ) {  
         vector<Hotel_Booking> hotel_vector = it->second ; 
-        message("\tHotel Bookings");
+        message("\n\tHotel Bookings");
         for (auto& it : hotel_vector) {
             cout << it;
         }
