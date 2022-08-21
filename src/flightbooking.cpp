@@ -50,8 +50,13 @@ void Flight_Booking::set_from_city(string from)
     from_city = from;
 }
 
+
+void Flight_Booking::set_flight(int  flight){
+    flight_number = flight;
+}
+
 ostream & operator<< (ostream& os, Flight_Booking &obj){
-    os << obj.from_city << " -  " << obj.to_city << " on " << obj.travel_date 
-    << ". Passengers " << obj.passengers_count << endl;
+    os << obj.airlines << " - " << obj.from_city << " " << obj.to_city << " on " << obj.travel_date 
+    << ",Passengers " << obj.passengers_count << endl;
     return os;
 }

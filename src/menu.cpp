@@ -29,7 +29,6 @@ int Menu::show_menu(User_Status current_status){
         }
 
 
-
         default:
             break;
     }

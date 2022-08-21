@@ -24,6 +24,7 @@ class Flight_Booking {
         map<string, vector<FlightInfo>> get_flight_info_api();
         void set_passengers_count(int passengers_count);
         void set_airlines(string airlines );
+        void set_flight(int  flight);
 
         
     private:
@@ -31,7 +32,7 @@ class Flight_Booking {
         string to_city;
         string travel_date;
         int passengers_count;
-        int flight;
+        int flight_number;
         string airlines;
 };
 
@@ -41,7 +42,7 @@ void serialize(Archive& archive, Flight_Booking& record) {
         cereal::make_nvp("to_city", record.to_city),
       cereal::make_nvp("travel_date", record.travel_date),
       cereal::make_nvp("passengers_count", record.passengers_count),
-      cereal::make_nvp("flight", record.flight));
+      cereal::make_nvp("flight", record.flight_number));
 }
 
 

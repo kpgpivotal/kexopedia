@@ -14,6 +14,7 @@
 #include "utils.hpp"
 #include "user.hpp"
 #include "flightbooking.hpp"
+#include "hotelbooking.hpp"
 
 
 using namespace std;
@@ -27,12 +28,18 @@ class ItineraryManager {
     ~ItineraryManager();
     int book_flight(int uid);
     int book_hotel(int uid);
-    void get_flight_bookings(Flight_Booking flight);
+    Flight_Booking get_flight_bookings(Flight_Booking flight);
+    Hotel_Booking  get_hotel_bookings(Hotel_Booking hotel);
     int list_my_itineraries(long uid);
 
     private:
     map<int, vector<Flight_Booking> > flight_booking_map;
     int add_flight_to_map(long uid, Flight_Booking& flbook);
+    map<int, vector<Hotel_Booking> > hotel_booking_map;
+    int add_hotel_to_map(long uid, Hotel_Booking& hotel_booking);
+    int list_my_flight_itineraries(long uid);
+    int list_my_hotel_itineraries(long uid);
+
     
    
 };
