@@ -13,6 +13,7 @@
 #include "usermanager.hpp"
 #include "user.hpp"
 #include "itinerarymanager.hpp"
+#include "paymentprocessor.hpp"
 
 const int EXIT_MENU_CHOICE = 0;
 const string CONFIG_FILE_NAME = "kexopediaui.json";

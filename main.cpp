@@ -1,7 +1,6 @@
 #include <iostream>
 #include "kexopedia.hpp"
-#include "itinerarymanager.hpp"
-#include "expedia_hotels_api.h"
+#include "paymentprocessor.hpp"
 
 using namespace std;
 
@@ -19,10 +18,9 @@ int main(int argc, char** argv) {
 
 
 void module_test(){
-    ItineraryManager itine_manager;
+    PaymentProcessor payment_processor{};
+    int choice{};
 
-    itine_manager.book_hotel(7);
-    itine_manager.list_my_itineraries(7);
-
-
+    choice = payment_processor.get_payment_choice();
+    cout << "\nUser choice : " << choice;
 }

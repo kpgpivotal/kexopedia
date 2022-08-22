@@ -245,6 +245,7 @@ int UIManager::view_profile()
 		message("Unable to generate active user profile.");
 		return 0;
 	}
+	
 	message("\tProfile");
 	message(profile);
 	return 1;
@@ -321,7 +322,23 @@ int UIManager::add_hotel()
 
 int UIManager::itinerary_ok()
 {
-	message("Itinerary updated.");
+	// process payment
+	// list payment options
+	// debit a/c based on user choice
+	// confirm hotel and or flight reservation
+	// reserve itinerary
+	 PaymentProcessor payment_processor{};
+    int choice{};
+
+    choice = payment_processor.get_payment_choice();
+
+	if (-1 == choice ){
+		return 0;
+	}
+
+	message("Your card is debited successfully.");
+	message("Reservation is confirmed.");
+	message("Itinerary is reserved.");
 	current_status = Loggedin;
 	return 1;
 }
