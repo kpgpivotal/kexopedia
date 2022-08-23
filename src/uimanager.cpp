@@ -38,7 +38,7 @@ UIManager::~UIManager()
 		{
 			cereal::JSONOutputArchive archive{output};
 			archive(
-				cereal::make_nvp("valid_choice_map", valid_choice_map), 
+				cereal::make_nvp("valid_choice_map", valid_choice_map),
 				cereal::make_nvp("itinerary_manager", itinerary_manager)); // serialize records
 		}
 	}
@@ -245,7 +245,7 @@ int UIManager::view_profile()
 		message("Unable to generate active user profile.");
 		return 0;
 	}
-	
+
 	message("\tProfile");
 	message(profile);
 	return 1;
@@ -322,22 +322,26 @@ int UIManager::add_hotel()
 
 int UIManager::itinerary_ok()
 {
-	// process payment
-	// list payment options
-	// debit a/c based on user choice
-	// confirm hotel and or flight reservation
-	// reserve itinerary
-	 PaymentProcessor payment_processor{};
-    int choice{};
+	// look for bookings to be paid
+	if (  false == itinerary_manager.is_bookings_tobe_paid()){
+		message("No Bookings found.");
+		return 0;
+	}
 
-    choice = payment_processor.get_payment_choice();
+	PaymentProcessor payment_processor{};
+	int choice{};
 
-	if (-1 == choice ){
+	choice = payment_processor.get_payment_choice();
+
+	if (-1 == choice)
+	{
 		return 0;
 	}
 
 	message("Your card is debited successfully.");
 	message("Reservation is confirmed.");
+
+	itinerary_manager.reserve_booking(user_manager.get_active_user_id());
 	message("Itinerary is reserved.");
 	current_status = Loggedin;
 	return 1;
@@ -345,7 +349,14 @@ int UIManager::itinerary_ok()
 
 int UIManager::itinerary_cancel()
 {
-	message("itinerary_ok");
-	current_status = Loggedin;
-	return 1;
+
+	bool is_yes = get_y_n_confirmation();
+	if ( true == is_yes) {
+		itinerary_manager.clear_bookings();
+		current_status = Loggedin;
+		return 1;
+	}
+
+	
+	return 0;
 }

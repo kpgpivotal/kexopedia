@@ -18,7 +18,7 @@ int ItineraryManager::book_flight(int uid){
     Flight_Booking flight{fcity,tocity, date};
     flight = get_flight_bookings(flight);
     flight.set_passengers_count(pcount);
-    add_flight_to_map(uid, flight);
+    block_flight(uid, flight);
 
     message("Booked flight");
     
@@ -42,6 +42,32 @@ int ItineraryManager::list_my_flight_itineraries(long uid){
         }
     }
     return 1;
+}
+
+int ItineraryManager::reserve_booking(long uid ){
+
+    auto it = block_hotel_map.find(uid);  
+    if ( it != block_hotel_map.end() ) { 
+        vector<Hotel_Booking> hotel_vector = it->second ; 
+        for (auto& it : hotel_vector) {
+            add_hotel_to_map(uid,  it);
+        }        
+    }
+
+    block_hotel_map.clear();
+
+    auto itf = block_flight_map.find(uid);  
+    if ( itf != block_flight_map.end() ) { 
+        vector<Flight_Booking> flight_vector = itf->second ; 
+        for (auto& itf : flight_vector) {
+            add_flight_to_map(uid,  itf);
+        }        
+    }
+
+    block_flight_map.clear();
+
+    return 1;
+    
 }
 
 int ItineraryManager::list_my_hotel_itineraries(long uid){
@@ -71,6 +97,27 @@ int ItineraryManager::list_my_itineraries(long uid){
     return 1;
 }
 
+int ItineraryManager::block_hotel(long uid, Hotel_Booking& hotel_booking){
+vector<Hotel_Booking> hotel_vector{};
+
+    auto it = block_hotel_map.find(uid);  
+    if ( it != block_hotel_map.end() ) {  
+        hotel_vector = it->second ; 
+        hotel_vector.push_back(hotel_booking);
+        block_hotel_map.erase(uid);
+        // insert updated node
+        block_hotel_map.insert(pair<long, vector<Hotel_Booking> >(uid, hotel_vector));
+        return 1;
+    }
+    
+    hotel_vector.push_back(hotel_booking);
+    block_hotel_map.insert(pair<long, vector<Hotel_Booking> >(uid, hotel_vector));
+
+    return 1;
+}
+
+
+
 int ItineraryManager::add_hotel_to_map(long uid, Hotel_Booking& hotel_booking){
 vector<Hotel_Booking> hotel_vector{};
 
@@ -86,6 +133,26 @@ vector<Hotel_Booking> hotel_vector{};
     
     hotel_vector.push_back(hotel_booking);
     hotel_booking_map.insert(pair<long, vector<Hotel_Booking> >(uid, hotel_vector));
+
+    return 1;
+}
+
+int ItineraryManager::block_flight(long uid, Flight_Booking& flbook){
+    vector<Flight_Booking> flight_vector{};
+
+    auto it = block_flight_map.find(uid);  
+    if ( it != block_flight_map.end() ) {  
+        flight_vector = it->second ; 
+        flight_vector.push_back(flbook);
+        block_flight_map.erase(uid);
+        // insert updated node
+        block_flight_map.insert(pair<long, vector<Flight_Booking>>(uid, flight_vector));
+        return 1;
+    }
+
+    
+    flight_vector.push_back(flbook);
+    block_flight_map.insert(pair<long, vector<Flight_Booking>>(uid, flight_vector));
 
     return 1;
 }
@@ -129,9 +196,9 @@ int ItineraryManager::book_hotel(int uid){
     }
 
 
-    add_hotel_to_map(uid, hotel);
+    block_hotel(uid, hotel);
 
-    message("Booked your hotel!");
+    message("Blocked the hotel. Reservation will be complete once you confirm and pay.");
     
     return 1;
 }
@@ -210,4 +277,18 @@ Flight_Booking  ItineraryManager::get_flight_bookings(Flight_Booking flight){
     return flight;
 }
 
+bool ItineraryManager::is_bookings_tobe_paid(){
 
+    if ( (block_hotel_map.size() > 0)  || ( block_flight_map.size()> 0 ) ) {
+        return true;
+    }
+
+    return false;
+}
+
+int  ItineraryManager::clear_bookings(){
+    block_hotel_map.clear();
+    block_flight_map.clear();
+
+    return 1;
+}
