@@ -8,7 +8,10 @@
 #include <fmt/format.h>
 #include <fstream>
 #include <vector>
+#include <memory>
 
+#include "paymentprocessor.hpp"
+#include "paymentcard.hpp"
 #include "utils.hpp"
 
 using namespace std;
@@ -40,6 +43,7 @@ class User {
         void set_address(string mAddress);
         bool is_administrator() const;
         void make_administrator();
+        void add_payment_card( PaymentCard* card);
 
     private:
         long mid;
@@ -49,6 +53,7 @@ class User {
         string mPassword;
         string mAddress;
         bool is_admin;
+        vector<PaymentCard*> cards;
 };
 
 // function template serialize is responsible for serializing and 
@@ -61,7 +66,8 @@ void serialize(Archive& archive, User& record) {
       cereal::make_nvp("mEmail", record.mEmail),
       cereal::make_nvp("mPassword", record.mPassword),
       cereal::make_nvp("mAddress", record.mAddress),
-      cereal::make_nvp("is_admin", record.is_admin));
+      cereal::make_nvp("is_admin", record.is_admin)
+      );
 }
 
 #endif /* INCLUDE_User_HPP_ */

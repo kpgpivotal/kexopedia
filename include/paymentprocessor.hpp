@@ -3,10 +3,11 @@
 #define INCLUDE_PAYMENT_PROCESSOR_H
 
 #include <iostream>
+#include <boost/lexical_cast.hpp>
 #include "user.hpp"
 #include "utils.hpp"
-#include "json.hpp"
-using namespace json;
+#include "paymentcard.hpp"
+
 
 using namespace std;
 
@@ -24,6 +25,8 @@ public:
 	void SetCardInfo(const PayPalCreditCard* const card) {
 	}
 	bool MakePayment(double money) {
+		
+		message("$" + boost::lexical_cast<string>(money) + " spent on your card. Thanks for using PayPal servce.");
 		return true;
 	}
 };
@@ -49,9 +52,9 @@ public:
 
 class SquarePaymentAPI {
 public:
-	bool static WithDrawMoney(string JsonQuery) {
-		//cout << JsonQuery << "\n";
-		json::JSON obj = JSON::Load(JsonQuery);
+	bool static WithDrawMoney(double amount) {
+		message("$" + to_string(amount) + " spent on your card. Thanks for using PayPal servce.");
+		
 		return true;
 	}
 };
@@ -124,19 +127,8 @@ public:
 		ccv = ccv_;
 	}
 	virtual bool MakePayment(double money) {
-		// This now similar to Adapter pattern. We change format of interface to match another interface
-		json::JSON obj;
-		obj["user_info"] = json::Array(name, address);
-		obj["card_info"]["ID"] = id;
-		obj["card_info"]["DATE"] = expiry_date;
-		obj["card_info"]["CCV"] = ccv;
-		obj["money"] = money;
 
-		ostringstream oss;
-		oss << obj;
-		string json_query = oss.str();
-
-		return SquarePaymentAPI::WithDrawMoney(json_query);
+		return SquarePaymentAPI::WithDrawMoney(money);
 	}
 };
 
@@ -156,11 +148,15 @@ public:
 class PaymentProcessor{
     public:
         PaymentProcessor();
+		~PaymentProcessor();
         int get_payment_choice();
+		bool charge_cost(int choice,  double cost);
 
     private:
         int list_payment_options();
         int get_selected_choice();
+		IPayment* payment_helper;
+		PaymentCard* payment_card;
 
 
 };

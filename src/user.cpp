@@ -107,3 +107,7 @@ bool User::is_administrator() const{
 void User::make_administrator(){
     is_admin = true;
 }
+
+void User::add_payment_card( PaymentCard* card) {
+		cards.push_back(card);
+	}

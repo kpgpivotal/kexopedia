@@ -22,5 +22,6 @@ void module_test(){
     int choice{};
 
     choice = payment_processor.get_payment_choice();
-    cout << "\nUser choice : " << choice;
+
+    payment_processor.charge_cost(choice, 2228.75);
 }
