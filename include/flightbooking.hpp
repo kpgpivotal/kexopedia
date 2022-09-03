@@ -25,6 +25,8 @@ class Flight_Booking {
         void set_passengers_count(int passengers_count);
         void set_airlines(string airlines );
         void set_flight(int  flight);
+        void set_cost(double cost);
+        double get_cost();
 
         
     private:
@@ -34,6 +36,7 @@ class Flight_Booking {
         int passengers_count;
         int flight_number;
         string airlines;
+        double cost;
 };
 
 template <typename Archive>
@@ -43,9 +46,21 @@ void serialize(Archive& archive, Flight_Booking& record) {
       cereal::make_nvp("travel_date", record.travel_date),
       cereal::make_nvp("passengers_count", record.passengers_count),
       cereal::make_nvp("flight", record.flight_number),
-      cereal::make_nvp("airlines", record.airlines));
-}
+      cereal::make_nvp("airlines", record.airlines),
+      cereal::make_nvp("cost", record.cost));
+};
 
+class FlightCost {
+    public:
+        FlightCost();
+        FlightCost(string flight_name, FlightInfo flight_info);
+        double get_cost();
+        string get_flight_name() const;
+        
+    private:
+        string flight_name;
+        FlightInfo flight_info;
 
+};
 
 #endif

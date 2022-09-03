@@ -5,7 +5,7 @@ ItineraryManager::~ItineraryManager(){
    
 }
 
-int ItineraryManager::book_flight(int uid){
+int ItineraryManager::book_flight(long uid){
     string fcity{},tocity{}, date{}; 
     int pcount{}, the_flight{};
 
@@ -177,7 +177,7 @@ int ItineraryManager::add_flight_to_map(long uid, Flight_Booking& flbook){
     return 1;
 }
 
-int ItineraryManager::book_hotel(int uid){
+int ItineraryManager::book_hotel(long uid){
     string country{}, city{}, from_date{},to_date{},hotel_name{};
     int guests_count{}, hotel_num{};
 
@@ -241,18 +241,19 @@ Hotel_Booking  ItineraryManager::get_hotel_bookings(Hotel_Booking hotel){
 
 
 Flight_Booking  ItineraryManager::get_flight_bookings(Flight_Booking flight){
-    int flight_number{}, flight_choice{};
+    int flight_sequence_number{}, flight_choice{};
     string airlines{};
     vector<FlightInfo> api_flight_vec{};
-    map<int, string > airlines_map;
+    map<int, FlightCost > airlines_map;
+    FlightCost flight_cost{};
 
-    map<string, vector<FlightInfo>> flight_vec = flight.get_flight_info_api( );
-    for (auto item = flight_vec.begin(); item != flight_vec.end(); item++) {
+    map<string, vector<FlightInfo>> flight_map = flight.get_flight_info_api( );
+    for (auto item = flight_map.begin(); item != flight_map.end(); item++) {
         cout << item->first << endl;
         api_flight_vec = item->second;
         for ( FlightInfo flight : api_flight_vec) {
-            cout << ++flight_number << " " << flight << endl; 
-            airlines_map.insert(make_pair(flight_number, item->first));
+            cout << ++flight_sequence_number << " " << flight << endl; 
+            airlines_map.insert(make_pair(flight_sequence_number, FlightCost(item->first, flight)));
         }
         cout << endl;
     }
@@ -261,19 +262,17 @@ Flight_Booking  ItineraryManager::get_flight_bookings(Flight_Booking flight){
 
     flight_choice = get_input_int("Choose your flight by number (-1 to cancel)");
     if (-1 != flight_choice){
-        airlines_map.find(flight_choice);
- 
-        map<int, string>::iterator it = airlines_map.find(flight_choice);
+            map<int, FlightCost>::iterator it = airlines_map.find(flight_choice);
         if (it != airlines_map.end())
         {
-            airlines = it->second;   
+            flight_cost = it->second;   
         }
     }
     
-    flight.set_airlines(airlines);
+    flight.set_airlines(flight_cost.get_flight_name());
     flight.set_flight(flight_choice);
+    flight.set_cost(flight_cost.get_cost());
 
-    
     return flight;
 }
 
@@ -291,4 +290,20 @@ int  ItineraryManager::clear_bookings(){
     block_flight_map.clear();
 
     return 1;
+}
+
+double ItineraryManager::get_itinerary_cost(long uid){
+    double total_cost{};
+
+    map<int, vector<Flight_Booking>>::iterator it = block_flight_map.find(uid);
+    if (it != flight_booking_map.end())
+    {
+        vector<Flight_Booking> flight_vec = it->second;  
+        for ( Flight_Booking flight : flight_vec) {
+            total_cost += flight.get_cost();
+        }
+
+    }
+
+    return total_cost;
 }

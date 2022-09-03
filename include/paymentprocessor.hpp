@@ -13,7 +13,7 @@ using namespace std;
 
 class PayPalCreditCard {
 public:
-	string name;
+	string flight_name;
 	string address;
 	string id;
 	string expiry_date;
@@ -33,7 +33,7 @@ public:
 
 class StripeUserInfo {
 public:
-	string name;
+	string flight_name;
 	string address;
 };
 
@@ -63,7 +63,7 @@ public:
 
 class IPayment {
 public:
-	virtual void SetUserInfo(string name, string address) = 0;
+	virtual void SetUserInfo(string flight_name, string address) = 0;
 	virtual void SetCardInfo(string id, string expiry_date, int ccv) = 0;
 	virtual bool MakePayment(double money) = 0;
 	virtual ~IPayment() {
@@ -75,8 +75,8 @@ private:
 	PayPalOnlinePaymentAPI paypal;
 	PayPalCreditCard card;
 public:
-	virtual void SetUserInfo(string name, string address) {
-		card.name = name;
+	virtual void SetUserInfo(string flight_name, string address) {
+		card.flight_name = flight_name;
 		card.address = address;
 	}
 	virtual void SetCardInfo(string id, string expiry_date, int ccv) {
@@ -95,8 +95,8 @@ private:
 	StripeCardInfo card;
 	StripeUserInfo user;
 public:
-	virtual void SetUserInfo(string name, string address) {
-		user.name = name;
+	virtual void SetUserInfo(string flight_name, string address) {
+		user.flight_name = flight_name;
 		user.address = address;
 	}
 	virtual void SetCardInfo(string id, string expiry_date, int ccv) {
@@ -110,7 +110,7 @@ public:
 
 class SquarePayment: public IPayment {
 private:
-	string name;
+	string flight_name;
 	string address;
 	string id;
 	string expiry_date;
@@ -118,7 +118,7 @@ private:
 
 public:
 	virtual void SetUserInfo(string name_, string address_) {
-		name = name_;
+		flight_name = name_;
 		address = address_;
 	}
 	virtual void SetCardInfo(string id_, string expiry_date_, int ccv_) {

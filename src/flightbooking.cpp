@@ -3,7 +3,7 @@
 
 
 Flight_Booking::Flight_Booking(){
-
+    cost =0.0;
 }
 
 void Flight_Booking::set_passengers_count(int count){
@@ -12,7 +12,17 @@ void Flight_Booking::set_passengers_count(int count){
 
 void Flight_Booking::set_airlines(string the_airlines ){
     airlines = the_airlines;
+  
 }
+
+void Flight_Booking::set_cost(double pcost){
+    cost = pcost;
+}
+
+double Flight_Booking::get_cost(){
+    return cost;
+}
+
 
 map<string, vector<FlightInfo>> Flight_Booking::get_flight_info_api(){
     map<string, vector<FlightInfo>> flight_info_map{};
@@ -57,6 +67,26 @@ void Flight_Booking::set_flight(int  flight){
 
 ostream & operator<< (ostream& os, Flight_Booking &obj){
     os << obj.airlines << " - " << obj.from_city << " " << obj.to_city << " on " << obj.travel_date 
-    << ",Passengers " << obj.passengers_count << endl;
+    << ",Passengers " << obj.passengers_count << " Cost $" << obj.cost << endl;
     return os;
+}
+
+
+
+FlightCost::FlightCost(string pname, FlightInfo pflight_info) : flight_name{pname}, flight_info{pflight_info} {
+
+}
+
+FlightCost::FlightCost()  {
+    flight_name = "";
+}
+       
+
+double FlightCost::get_cost(){
+    
+    return flight_info.price;
+}
+
+string FlightCost::get_flight_name() const{
+    return flight_name;
 }

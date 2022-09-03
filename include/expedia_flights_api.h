@@ -9,6 +9,7 @@ using namespace std;
 class FlightInfo {
 	friend ostream& operator<< (ostream& os, FlightInfo& obj);
 public:
+	FlightInfo();
 	FlightInfo(string from, string to, double price, string date_time_from, string date_time_to);
 	string from;
 	string to;

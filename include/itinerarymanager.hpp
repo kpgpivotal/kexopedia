@@ -26,8 +26,8 @@ class ItineraryManager {
 
     public:
     ~ItineraryManager();
-    int book_flight(int uid);
-    int book_hotel(int uid);
+    int book_flight(long uid);
+    int book_hotel(long uid);
     Flight_Booking get_flight_bookings(Flight_Booking flight);
     Hotel_Booking  get_hotel_bookings(Hotel_Booking hotel);
     int list_my_itineraries(long uid);
@@ -35,6 +35,7 @@ class ItineraryManager {
     int reserve_booking(long uid );
     int clear_bookings();
     bool is_bookings_tobe_paid();
+    double get_itinerary_cost(long uid);
 
     private:
     map<int, vector<Flight_Booking> > flight_booking_map;

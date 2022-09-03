@@ -82,8 +82,7 @@ public:
 
 class CreditCard: public PaymentCard {
 protected:
-	// Say we don't keep billing address
-	// Although no attributes, but better have separate class to differentiate them if needed
+	
 public:
 	virtual string ToString() const override {
 		ostringstream oss;

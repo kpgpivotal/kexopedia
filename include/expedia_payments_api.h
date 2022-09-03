@@ -11,7 +11,7 @@ using namespace json;
 
 class PayPalCreditCard {
 public:
-	string name;
+	string flight_name;
 	string address;
 	string id;
 	string expiry_date;
@@ -29,7 +29,7 @@ public:
 
 class StripeUserInfo {
 public:
-	string name;
+	string flight_name;
 	string address;
 };
 

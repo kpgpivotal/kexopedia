@@ -322,6 +322,8 @@ int UIManager::add_hotel()
 
 int UIManager::itinerary_ok()
 {
+	double total_cost{};
+
 	// look for bookings to be paid
 	if (  false == itinerary_manager.is_bookings_tobe_paid()){
 		message("No Bookings found.");
@@ -338,8 +340,8 @@ int UIManager::itinerary_ok()
 		return 0;
 	}
 
-	message("Your card is debited successfully.");
-	message("Reservation is confirmed.");
+	total_cost =  itinerary_manager.get_itinerary_cost(user_manager.get_active_user_id());
+	payment_processor.charge_cost(choice, total_cost);
 
 	itinerary_manager.reserve_booking(user_manager.get_active_user_id());
 	message("Itinerary is reserved.");
