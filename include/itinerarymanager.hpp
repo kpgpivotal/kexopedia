@@ -28,8 +28,8 @@ class ItineraryManager {
     ~ItineraryManager();
     int book_flight(long uid);
     int book_hotel(long uid);
-    Flight_Booking get_flight_bookings(Flight_Booking flight);
-    Hotel_Booking  get_hotel_bookings(Hotel_Booking hotel);
+    Flight get_flight_bookings(Flight flight);
+    Hotel  get_hotel_bookings(Hotel hotel);
     int list_my_itineraries(long uid);
     //int reserve_booking();
     int reserve_booking(long uid );
@@ -38,16 +38,16 @@ class ItineraryManager {
     double get_itinerary_cost(long uid);
 
     private:
-    map<int, vector<Flight_Booking> > flight_booking_map;
-    map<int, vector<Flight_Booking> > block_flight_map;
-    int add_flight_to_map(long uid, Flight_Booking& flbook);
-    map<int, vector<Hotel_Booking> > hotel_booking_map;
-    map<int, vector<Hotel_Booking> > block_hotel_map;
-    int add_hotel_to_map(long uid, Hotel_Booking& hotel_booking);
+    map<int, vector<Flight> > flight_booking_map;
+    map<int, vector<Flight> > block_flight_map;
+    int add_flight_to_map(long uid, Flight& flbook);
+    map<int, vector<Hotel> > hotel_booking_map;
+    map<int, vector<Hotel> > block_hotel_map;
+    int add_hotel_to_map(long uid, Hotel& hotel_booking);
     int list_my_flight_itineraries(long uid);
     int list_my_hotel_itineraries(long uid);
-    int block_hotel(long uid, Hotel_Booking& hotel_booking);
-    int block_flight(long uid, Flight_Booking& flbook);
+    int block_hotel(long uid, Hotel& hotel_booking);
+    int block_flight(long uid, Flight& flbook);
     
 };
 

@@ -10,6 +10,7 @@ using namespace std;
 class HotelRoom {
 	friend ostream& operator<< (ostream& os, HotelRoom& obj);
 public:
+	string name;
 	string room_type;
 	int available;
 	double price_per_night;

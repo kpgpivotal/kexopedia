@@ -14,18 +14,19 @@
 
 using namespace std;
 
-class Hotel_Booking {
+class Hotel {
     template<typename Archive>
-    friend void serialize(Archive& archive, Hotel_Booking& record);
-    friend ostream& operator<<(ostream& os, Hotel_Booking &obj);
+    friend void serialize(Archive& archive, Hotel& record);
+    friend ostream& operator<<(ostream& os, Hotel &obj);
     public:
-        Hotel_Booking();
-        Hotel_Booking(string country, string city, string from_date,string to_date,
+        Hotel();
+        Hotel(string country, string city, string from_date,string to_date,
             int guests_count );
         map<string, vector<HotelRoom>> get_hotel_info_api();
         void set_guests_count(int guests_count);
         void set_hotel(string hotel );
-
+        void set_cost(double cost);
+        double get_cost();
 
         
     private:
@@ -35,16 +36,18 @@ class Hotel_Booking {
         string to_date;
         int guests_count;
         string hotel;
+        double cost;
 };
 
 template <typename Archive>
-void serialize(Archive& archive, Hotel_Booking& record) {
+void serialize(Archive& archive, Hotel& record) {
    archive( cereal::make_nvp("country", record.country),
         cereal::make_nvp("city", record.city),
       cereal::make_nvp("from_date", record.from_date),
       cereal::make_nvp("to_date", record.to_date),
       cereal::make_nvp("guests_count", record.guests_count),
-      cereal::make_nvp("hotel", record.hotel));
+      cereal::make_nvp("hotel", record.hotel),
+      cereal::make_nvp("cost", record.cost));
 }
 
 

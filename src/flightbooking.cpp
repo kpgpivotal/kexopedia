@@ -2,29 +2,29 @@
 #include "flightbooking.hpp"
 
 
-Flight_Booking::Flight_Booking(){
+Flight::Flight(){
     cost =0.0;
 }
 
-void Flight_Booking::set_passengers_count(int count){
+void Flight::set_passengers_count(int count){
     passengers_count = count;
 }
 
-void Flight_Booking::set_airlines(string the_airlines ){
+void Flight::set_airlines(string the_airlines ){
     airlines = the_airlines;
   
 }
 
-void Flight_Booking::set_cost(double pcost){
+void Flight::set_cost(double pcost){
     cost = pcost;
 }
 
-double Flight_Booking::get_cost(){
+double Flight::get_cost(){
     return cost;
 }
 
 
-map<string, vector<FlightInfo>> Flight_Booking::get_flight_info_api(){
+map<string, vector<FlightInfo>> Flight::get_flight_info_api(){
     map<string, vector<FlightInfo>> flight_info_map{};
     FlightsAPI flights_api;
     AirCanadaOnlineAPI air_canda_flights_api;
@@ -45,27 +45,27 @@ map<string, vector<FlightInfo>> Flight_Booking::get_flight_info_api(){
     return flight_info_map;
 }
 
-Flight_Booking::Flight_Booking(string city, string tcity, string date)
+Flight::Flight(string city, string tcity, string date)
     : from_city{city}, to_city{tcity}, travel_date{date}, passengers_count{0} {
 
 }
 
-string Flight_Booking::get_from_city()
+string Flight::get_from_city()
 {
     return from_city;
 }
 
-void Flight_Booking::set_from_city(string from)
+void Flight::set_from_city(string from)
 {
     from_city = from;
 }
 
 
-void Flight_Booking::set_flight(int  flight){
+void Flight::set_flight(int  flight){
     flight_number = flight;
 }
 
-ostream & operator<< (ostream& os, Flight_Booking &obj){
+ostream & operator<< (ostream& os, Flight &obj){
     os << obj.airlines << " - " << obj.from_city << " " << obj.to_city << " on " << obj.travel_date 
     << ",Passengers " << obj.passengers_count << " Cost $" << obj.cost << endl;
     return os;

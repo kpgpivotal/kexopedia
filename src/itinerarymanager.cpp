@@ -15,7 +15,7 @@ int ItineraryManager::book_flight(long uid){
     date = get_input_string("Enter travel date");
     pcount = get_input_int("Enter number of passengers");
     // show flights list
-    Flight_Booking flight{fcity,tocity, date};
+    Flight flight{fcity,tocity, date};
     flight = get_flight_bookings(flight);
     flight.set_passengers_count(pcount);
     block_flight(uid, flight);
@@ -35,7 +35,7 @@ int ItineraryManager::list_my_flight_itineraries(long uid){
 
     auto it = flight_booking_map.find(uid);  
     if ( it != flight_booking_map.end() ) {  
-        vector<Flight_Booking> flight_vector = it->second ; 
+        vector<Flight> flight_vector = it->second ; 
         message("\tFlight Bookings");
         for (auto& it : flight_vector) {
             cout << it;
@@ -48,7 +48,7 @@ int ItineraryManager::reserve_booking(long uid ){
 
     auto it = block_hotel_map.find(uid);  
     if ( it != block_hotel_map.end() ) { 
-        vector<Hotel_Booking> hotel_vector = it->second ; 
+        vector<Hotel> hotel_vector = it->second ; 
         for (auto& it : hotel_vector) {
             add_hotel_to_map(uid,  it);
         }        
@@ -58,7 +58,7 @@ int ItineraryManager::reserve_booking(long uid ){
 
     auto itf = block_flight_map.find(uid);  
     if ( itf != block_flight_map.end() ) { 
-        vector<Flight_Booking> flight_vector = itf->second ; 
+        vector<Flight> flight_vector = itf->second ; 
         for (auto& itf : flight_vector) {
             add_flight_to_map(uid,  itf);
         }        
@@ -80,7 +80,7 @@ int ItineraryManager::list_my_hotel_itineraries(long uid){
 
     auto it = hotel_booking_map.find(uid);  
     if ( it != hotel_booking_map.end() ) {  
-        vector<Hotel_Booking> hotel_vector = it->second ; 
+        vector<Hotel> hotel_vector = it->second ; 
         message("\n\tHotel Bookings");
         for (auto& it : hotel_vector) {
             cout << it;
@@ -97,8 +97,8 @@ int ItineraryManager::list_my_itineraries(long uid){
     return 1;
 }
 
-int ItineraryManager::block_hotel(long uid, Hotel_Booking& hotel_booking){
-vector<Hotel_Booking> hotel_vector{};
+int ItineraryManager::block_hotel(long uid, Hotel& hotel_booking){
+vector<Hotel> hotel_vector{};
 
     auto it = block_hotel_map.find(uid);  
     if ( it != block_hotel_map.end() ) {  
@@ -106,20 +106,20 @@ vector<Hotel_Booking> hotel_vector{};
         hotel_vector.push_back(hotel_booking);
         block_hotel_map.erase(uid);
         // insert updated node
-        block_hotel_map.insert(pair<long, vector<Hotel_Booking> >(uid, hotel_vector));
+        block_hotel_map.insert(pair<long, vector<Hotel> >(uid, hotel_vector));
         return 1;
     }
     
     hotel_vector.push_back(hotel_booking);
-    block_hotel_map.insert(pair<long, vector<Hotel_Booking> >(uid, hotel_vector));
+    block_hotel_map.insert(pair<long, vector<Hotel> >(uid, hotel_vector));
 
     return 1;
 }
 
 
 
-int ItineraryManager::add_hotel_to_map(long uid, Hotel_Booking& hotel_booking){
-vector<Hotel_Booking> hotel_vector{};
+int ItineraryManager::add_hotel_to_map(long uid, Hotel& hotel_booking){
+vector<Hotel> hotel_vector{};
 
     auto it = hotel_booking_map.find(uid);  
     if ( it != hotel_booking_map.end() ) {  
@@ -127,18 +127,18 @@ vector<Hotel_Booking> hotel_vector{};
         hotel_vector.push_back(hotel_booking);
         hotel_booking_map.erase(uid);
         // insert updated node
-        hotel_booking_map.insert(pair<long, vector<Hotel_Booking> >(uid, hotel_vector));
+        hotel_booking_map.insert(pair<long, vector<Hotel> >(uid, hotel_vector));
         return 1;
     }
     
     hotel_vector.push_back(hotel_booking);
-    hotel_booking_map.insert(pair<long, vector<Hotel_Booking> >(uid, hotel_vector));
+    hotel_booking_map.insert(pair<long, vector<Hotel> >(uid, hotel_vector));
 
     return 1;
 }
 
-int ItineraryManager::block_flight(long uid, Flight_Booking& flbook){
-    vector<Flight_Booking> flight_vector{};
+int ItineraryManager::block_flight(long uid, Flight& flbook){
+    vector<Flight> flight_vector{};
 
     auto it = block_flight_map.find(uid);  
     if ( it != block_flight_map.end() ) {  
@@ -146,19 +146,19 @@ int ItineraryManager::block_flight(long uid, Flight_Booking& flbook){
         flight_vector.push_back(flbook);
         block_flight_map.erase(uid);
         // insert updated node
-        block_flight_map.insert(pair<long, vector<Flight_Booking>>(uid, flight_vector));
+        block_flight_map.insert(pair<long, vector<Flight>>(uid, flight_vector));
         return 1;
     }
 
     
     flight_vector.push_back(flbook);
-    block_flight_map.insert(pair<long, vector<Flight_Booking>>(uid, flight_vector));
+    block_flight_map.insert(pair<long, vector<Flight>>(uid, flight_vector));
 
     return 1;
 }
 
-int ItineraryManager::add_flight_to_map(long uid, Flight_Booking& flbook){
-    vector<Flight_Booking> flight_vector{};
+int ItineraryManager::add_flight_to_map(long uid, Flight& flbook){
+    vector<Flight> flight_vector{};
 
     auto it = flight_booking_map.find(uid);  
     if ( it != flight_booking_map.end() ) {  
@@ -166,13 +166,13 @@ int ItineraryManager::add_flight_to_map(long uid, Flight_Booking& flbook){
         flight_vector.push_back(flbook);
         flight_booking_map.erase(uid);
         // insert updated node
-        flight_booking_map.insert(pair<long, vector<Flight_Booking>>(uid, flight_vector));
+        flight_booking_map.insert(pair<long, vector<Flight>>(uid, flight_vector));
         return 1;
     }
 
     
     flight_vector.push_back(flbook);
-    flight_booking_map.insert(pair<long, vector<Flight_Booking>>(uid, flight_vector));
+    flight_booking_map.insert(pair<long, vector<Flight>>(uid, flight_vector));
 
     return 1;
 }
@@ -187,7 +187,7 @@ int ItineraryManager::book_hotel(long uid){
     to_date = get_input_string("Enter to date");
     guests_count = get_input_int("Enter number of guests");
     // show hotel room list
-    Hotel_Booking hotel{country,city, from_date, to_date, guests_count};
+    Hotel hotel{country,city, from_date, to_date, guests_count};
  
     hotel = get_hotel_bookings(hotel);
 
@@ -203,11 +203,12 @@ int ItineraryManager::book_hotel(long uid){
     return 1;
 }
 
-Hotel_Booking  ItineraryManager::get_hotel_bookings(Hotel_Booking hotel){
+Hotel  ItineraryManager::get_hotel_bookings(Hotel hotel){
     int hotel_number{}, hotel_choice{};
     string hotel_name{};
     vector<HotelRoom> api_hotel_vec{};
-    map<int, string > hotel_selection_map;
+    map<int, HotelRoom > hotel_selection_map;
+    HotelRoom selected_hotel{};
     
 
     map<string, vector<HotelRoom>> hotel_map = hotel.get_hotel_info_api( );
@@ -216,7 +217,7 @@ Hotel_Booking  ItineraryManager::get_hotel_bookings(Hotel_Booking hotel){
         api_hotel_vec = item->second;
         for ( HotelRoom hotel_info : api_hotel_vec) {
             cout << ++hotel_number << " " << hotel_info << endl; 
-            hotel_selection_map.insert(make_pair(hotel_number, item->first));
+            hotel_selection_map.insert(make_pair(hotel_number, hotel_info));
         }
         cout << endl;
     }
@@ -227,20 +228,22 @@ Hotel_Booking  ItineraryManager::get_hotel_bookings(Hotel_Booking hotel){
     if (-1 != hotel_choice){
         hotel_selection_map.find(hotel_choice);
  
-        map<int, string>::iterator it = hotel_selection_map.find(hotel_choice);
+        map<int, HotelRoom>::iterator it = hotel_selection_map.find(hotel_choice);
         if (it != hotel_selection_map.end())
         {
-            hotel_name = it->second;   
+            selected_hotel = it->second;   
         }
     }
     
+    hotel_name = selected_hotel.name;
     hotel.set_hotel(hotel_name);
+    hotel.set_cost(selected_hotel.price_per_night);
 
     return hotel;
 }
 
 
-Flight_Booking  ItineraryManager::get_flight_bookings(Flight_Booking flight){
+Flight  ItineraryManager::get_flight_bookings(Flight flight){
     int flight_sequence_number{}, flight_choice{};
     string airlines{};
     vector<FlightInfo> api_flight_vec{};
@@ -295,15 +298,28 @@ int  ItineraryManager::clear_bookings(){
 double ItineraryManager::get_itinerary_cost(long uid){
     double total_cost{};
 
-    map<int, vector<Flight_Booking>>::iterator it = block_flight_map.find(uid);
-    if (it != flight_booking_map.end())
+    map<int, vector<Flight>>::iterator it = block_flight_map.find(uid);
+    if (it != block_flight_map.end())
     {
-        vector<Flight_Booking> flight_vec = it->second;  
-        for ( Flight_Booking flight : flight_vec) {
+        vector<Flight> flight_vec = it->second;  
+        for ( Flight flight : flight_vec) {
             total_cost += flight.get_cost();
         }
 
     }
 
+    cout << "Flight cost " << total_cost << endl;
+
+    map<int, vector<Hotel>>::iterator ith = block_hotel_map.find(uid);
+    if (ith != block_hotel_map.end())
+    {
+        vector<Hotel> hotel_vec = ith->second;  
+        for ( Hotel hotel : hotel_vec) {
+            total_cost += hotel.get_cost();
+        }
+
+    }
+
+    cout << "Total cost " << total_cost << endl;
     return total_cost;
 }

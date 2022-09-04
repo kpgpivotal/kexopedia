@@ -12,13 +12,13 @@
 
 using namespace std;
 
-class Flight_Booking {
+class Flight {
     template<typename Archive>
-    friend void serialize(Archive& archive, Flight_Booking& record);
-    friend ostream& operator<<(ostream& os, Flight_Booking &obj);
+    friend void serialize(Archive& archive, Flight& record);
+    friend ostream& operator<<(ostream& os, Flight &obj);
     public:
-        Flight_Booking();
-        Flight_Booking(string from_city, string to_city, string date);
+        Flight();
+        Flight(string from_city, string to_city, string date);
         string get_from_city();
         void set_from_city(string from);
         map<string, vector<FlightInfo>> get_flight_info_api();
@@ -40,7 +40,7 @@ class Flight_Booking {
 };
 
 template <typename Archive>
-void serialize(Archive& archive, Flight_Booking& record) {
+void serialize(Archive& archive, Flight& record) {
    archive( cereal::make_nvp("from_city", record.from_city),
         cereal::make_nvp("to_city", record.to_city),
       cereal::make_nvp("travel_date", record.travel_date),
@@ -56,7 +56,7 @@ class FlightCost {
         FlightCost(string flight_name, FlightInfo flight_info);
         double get_cost();
         string get_flight_name() const;
-        
+
     private:
         string flight_name;
         FlightInfo flight_info;
